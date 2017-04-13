@@ -6,7 +6,7 @@
 	<meta name="description" content="An abstract mapping for parameters. Works best if first tag is 'unique' among the tracklist, and the second tag applies to multiple tracks"/>
 	<meta name="mintags" content="2" />
 	<meta name="maxtags" content="2" />
-<title>Basic D3 Scatter Plot</title>
+<title>Vehicle Status</title>
 <style>
 
 svg {
@@ -194,7 +194,7 @@ text {
 
 								var diameter = 960;
 								var rect_width = 40;
-								var rect_height = 14;
+								var rect_height = 17;
 
 								var link_width = "1px"; 
 
@@ -232,10 +232,14 @@ text {
 								function get_color(name)
 								{
 								    var c = Math.round(color(name));
-								    if (isNaN(c))
-								        return '#a50026';	// fallback color
+								    if (isNaN(name)){
+								    	var lastChar = name.substr(name.length - 1);
+								    	var a = parseInt(lastChar);
+								    	return colors[a];
+								        	// fallback color
+								    }
+								    return '#a50026';
 								    
-								    return colors[c];
 								}
 
 								// Can't just use d3.svg.diagonal because one edge is in normal space, the
