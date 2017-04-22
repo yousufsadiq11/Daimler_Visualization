@@ -10,7 +10,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta charset="utf-8">
 <meta name="name" content="Concept Map" />
 <meta name="description"
 	content="An abstract mapping for parameters. Works best if first tag is 'unique' among the tracklist, and the second tag applies to multiple tracks" />
@@ -175,7 +174,6 @@ text {
 				links : links
 			}
 
-			// sort the data -- TODO: have multiple sort options
 			outer = data.outer;
 			data.outer = Array(outer.length);
 
@@ -423,7 +421,8 @@ text {
 		<script src="http://dimplejs.org/dist/dimple.v2.3.0.min.js"></script>
 		<script type="text/javascript">
 			
-		<%Gson z = new Gson();String json;
+		<%Gson z = new Gson();
+			String json;
 			ArrayList<cries> a = new ArrayList<cries>();
 			try {
 
@@ -452,67 +451,24 @@ text {
 				var mn = 'second list';
 				console.log(mn);
 				var MyList1 = [];
-		<%
-		
-		for (int i = 0; i < a.size(); i++) {
+		<%for (int i = 0; i < a.size(); i++) {
 
-				 json= z.toJson(a.get(i));
+				json = z.toJson(a.get(i));
 				System.out.println(json);%>
-				var temp=<%=json%>;
-			MyList1.push(temp);
+			var temp =
+		<%=json%>
+			;
+				MyList1.push(temp);
 		<%}%>
 			var svg = dimple.newSvg("#chartContainer", 1550, 400);
 
 				// The default data set for these examples has regular times
 				// and the point of this demo is to show the time axis
 				// functionality, therefore a small bespoke data set is used.
-				var data1=MyList1;console.log(data1);
-				/*data = [ {
-					"Shift" : "Early",
-					"Date" : "2017-03-06",
-					"Value" : 100,
-					"count" : 25
-				}, {
-					"Shift" : "Early",
-					"Date" : "2017-03-07",
-					"Value" : 200,
-					"count" : 30
-				}, {
-					"Shift" : "Early",
-					"Date" : "2017-03-08",
-					"Value" : 300,
-					"count" : 40
-				}, {
-					"Shift" : "Early",
-					"Date" : "2017-03-08",
-					"Value" : 200,
-					"count" : 38
-				}, {
-					"Shift" : "Early",
-					"Date" : "2017-03-08",
-					"Value" : 700,
-					"count" : 3
-				}, {
-					"Shift" : "Early",
-					"Date" : "2017-03-09",
-					"Value" : 100,
-					"count" : 23
-				}, {
-					"Shift" : "Early",
-					"Date" : "2017-03-09",
-					"Value" : 400,
-					"count" : 41
-				}, {
-					"Shift" : "Early",
-					"Date" : "2017-03-10",
-					"Value" : 200,
-					"count" : 2
-				}, ];*/
+				var data1 = MyList1;
 				console.log(data1);
-				// Create Separate Date and Time, this allows us to draw them
-				// on separate axes.  Despite the time axis only displaying
-				// the time portion, the whole date is used so they need to
-				// have the same date allocated
+
+				console.log(data1);
 				var qq;
 				data1.forEach(function(d) {
 					d["Date"] = d["ts_load"];
@@ -525,47 +481,20 @@ text {
 				// Create the chart as usual
 				var myChart = new dimple.chart(svg, data1);
 				myChart.setBounds(970, 40, 590, 320)
-
-				// Add the x axis reading dates in the format 01 Jan 2012
-				// and displaying them 01 Jan
 				var x = myChart.addCategoryAxis("x", "Date");
-
-				// Add the y axis reading dates and times but only outputting
-				// times.
 				var y = myChart.addAxis("y", "resp_insp_oprunt");
-
-				// Size the bubbles by volume
 				var z = myChart.addMeasureAxis("z", "count");
 				x.overrideMin = new Date("2017-03-06");
 				x.overrideMax = new Date("2017-03-14");
-				y.overrideMin = 50;
+				y.overrideMin = 0;
 				y.overrideMax = 900;
-
-				// Show a label for every 4 weeks.
-				//x.timePeriod = d3.time.days;
 				x.timeInterval = 1;
-				//   x.timePeriod = d3.date;
-				// x.timeInterval = 4;
-
-				// Control bubble sizes by setting the max and min values
 				z.overrideMin = -10;
-				z.overrideMax = 80;
-
-				// Add the bubble series for shift values first so that it is
-				// drawn behind the lines
-				myChart.addSeries("Date", dimple.plot.bubble);
-
-				// Add the line series on top of the bubbles.  The bubbles
-				// and line points will naturally fall in the same places
-				// var s = myChart.addSeries("Shift", dimple.plot.line);
-
-				// Add line markers to the line because it looks nice
-				//s.lineMarkers = true;
-
-				// Show a legend
-				//myChart.addLegend(780, 10, 360, 20, "right");
-
-				// Draw everything
+				z.overrideMax = 90;
+				myChart.addSeries("resp_insp_oprunt", dimple.plot.bubble);
+				var s = myChart.addSeries("resp_insp_oprunt", dimple.plot.line);
+				s.lineMarkers = true;
+				myChart.addLegend(1100, 25, 360, 20, "right");
 				myChart.draw();
 			}
 		</script>
