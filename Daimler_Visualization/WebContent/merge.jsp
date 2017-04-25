@@ -17,8 +17,20 @@
 <meta name="maxtags" content="2" />
 <title>Vehicle Status</title>
 <style>
+#chartContainer{
+height:30px;
+width: 500px;
+}
+#chart1{
+width: 20px;
+}
 svg {
 	font: 12px sans-serif;
+	
+}
+svg1 {
+	font: 12px sans-serif;
+	
 }
 
 text {
@@ -61,7 +73,7 @@ text {
 	<script src="https://d3js.org/d3.v3.min.js"></script>
 	<script src="JS/d3.min.js"></script>
 	<script src="http://dimplejs.org/dist/dimple.v2.3.0.min.js"></script>
-
+<div id="chart1">
 	<script>
 		
 	<%String myarraylist = "";
@@ -416,6 +428,7 @@ text {
 		}
 		//var z=MyList.split(',');
 	</script>
+	</div>
 	<div id="chartContainer">
 		<script src="JS/d3.min.js"></script>
 		<script src="http://dimplejs.org/dist/dimple.v2.3.0.min.js"></script>
@@ -460,41 +473,37 @@ text {
 			;
 				MyList1.push(temp);
 		<%}%>
-			var svg = dimple.newSvg("#chartContainer", 1550, 400);
+			var svg1 = dimple.newSvg("#chartContainer", 1580, 400);
 
 				// The default data set for these examples has regular times
 				// and the point of this demo is to show the time axis
 				// functionality, therefore a small bespoke data set is used.
 				var data1 = MyList1;
 				console.log(data1);
-
-				console.log(data1);
 				var qq;
 				data1.forEach(function(d) {
 					d["Date"] = d["ts_load"];
-					console.log(d["Date"]);
 					d["resp_insp_oprunt"] = d["resp_insp_oprunt"];
 					console.log(d["resp_insp_oprunt"]);
-					qq = d["count"];
 				}, this);
 
 				// Create the chart as usual
-				var myChart = new dimple.chart(svg, data1);
-				myChart.setBounds(970, 40, 590, 320)
+				var myChart = new dimple.chart(svg1, data1);
+				myChart.setBounds(900, 40, 350, 220)
 				var x = myChart.addCategoryAxis("x", "Date");
-				var y = myChart.addAxis("y", "resp_insp_oprunt");
+				var y = myChart.addMeasureAxis("y", "resp_insp_oprunt");
 				var z = myChart.addMeasureAxis("z", "count");
 				x.overrideMin = new Date("2017-03-06");
 				x.overrideMax = new Date("2017-03-14");
 				y.overrideMin = 0;
-				y.overrideMax = 900;
+				y.overrideMax = 700;
 				x.timeInterval = 1;
 				z.overrideMin = -10;
 				z.overrideMax = 90;
 				myChart.addSeries("resp_insp_oprunt", dimple.plot.bubble);
 				var s = myChart.addSeries("resp_insp_oprunt", dimple.plot.line);
 				s.lineMarkers = true;
-				myChart.addLegend(1100, 25, 360, 20, "right");
+				myChart.addLegend(900, 25, 360, 20, "right");
 				myChart.draw();
 			}
 		</script>
