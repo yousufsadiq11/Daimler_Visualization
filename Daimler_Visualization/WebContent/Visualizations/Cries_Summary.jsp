@@ -1,3 +1,10 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ page import="com.google.gson.Gson"%>
+<%@ page import="javax.servlet.*"%>
+<%@ page import="java.util.*"%>
+<%@ page import="java.sql.*"%>
+<%@ page import="bean.cries"%>
 <div id="chartContainer">
 		<script src="JS/d3.min.js"></script>
 		<script src="http://dimplejs.org/dist/dimple.v2.3.0.min.js"></script>

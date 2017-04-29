@@ -73,7 +73,7 @@ text {
 		<script src="JS/d3.min.js"></script>
 		<script src="http://dimplejs.org/dist/dimple.v2.3.0.min.js"></script>
 		<script src="Visualizations/Paint_Summary.js" type='text/javascript'></script>
-		<div class="pull-right">
+		<div>
 			<h3>Daimler Truck Dashboard</h3>
 		</div>
 		<div class="clearfix"></div>
